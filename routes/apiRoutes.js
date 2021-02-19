@@ -2,6 +2,8 @@ const { v4: uuidv4 } = require('uuid');
 const router = require("express").Router();
 const fs = require("fs");
 
+// gets the data from db.json and parses the data
+
 router.get("/", (req, res) => {
     fs.readFile ("db/db.json", "UTF-8", (err, data) => {
         if (err) {
@@ -11,6 +13,8 @@ router.get("/", (req, res) => {
         res.json(notes)
     })
 });
+
+// posts data into db.json by adding a unique idea. 
 
 router.post("/", (req, res) => {
     fs.readFile ("db/db.json", "UTF-8", (err, data) => {
