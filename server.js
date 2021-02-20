@@ -19,7 +19,7 @@ app.use(express.static("public"))
 
 // use API route
 
-app.use('/api/notes/', apiRoutes);
+app.use('/api', apiRoutes);
 
 // use HTML route
 
