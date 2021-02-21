@@ -36,27 +36,38 @@ router.post("/notes", (req, res) => {
 
 // deletes data
 
-// router.delete("/:id", (req, res) => {
-//         fs.readFile ("db/db.json", "UTF-8", (err, data) => {
-//         if (err) {
-//             throw err
-//         }
+router.delete("/notes/:id", (req, res) => {
+    fs.readFile ("db/db.json", "UTF-8", (err, data) => {
+        if (err) {
+            throw err
+        }
 
-//         const notes = JSON.parse (data);
-//         const note = req.body
-//         note.id = uuidv4()
-//         notes.splice(note.id)
+        // filter data to get notes except the one to delete
+        const noMoreID = req.params.id;
+        const notes = JSON.parse (data);
+        const note = req.body
+        // note.id = uuidv4()
+        newNote = notes.splice(noMoreID, 1)
+        idTarget()
+        console.log(noMoreID, 0)
+        // console.log(note.id, notes, note)
 
-//         fs.writeFile ("db/db.json", JSON.stringify(note.id), (err, data) => {
-//             if (err) {
-//                 res.json(err);
-//             } 
-//         res.json(note) 
+        // Write new data to 'db.json' file
+        fs.writeFile ("db/db.json", JSON.stringify(notes), (err) => {
+            if (err) {
+                res.json(err);
+            } 
 
-//     })
-// });
-// });
+        // Send response
+        res.json(notes)
 
-
+    })
+    function idTarget() {
+        for (i = 0; i < notes.length; i ++) {
+            notes[i].id = i;
+        }
+    }
+});
+});
 
 module.exports  = router;
